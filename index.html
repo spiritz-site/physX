@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="kz" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,426 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <style>
-    *:focus { outline: none !important; }
-    * { -webkit-tap-highlight-color: transparent; }
-
-    :root {
-      --accent-green: #00f2a0;
-      --accent-blue: #00c9ff;
-      --transition: 0.3s ease;
-
-      --bg-img-desktop: url('/images/background-desktop.png');
-      --bg-img-mobile: url('/images/background-mobile.png');
-    }
-
-    [data-theme="dark"] {
-      --bg-main: #010a1a;
-      --bg-overlay: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
-      --text-main: #ffffff;
-      --text-dim: rgba(255, 255, 255, 0.7);
-
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-
-      --modal-bg: linear-gradient(160deg, rgba(20, 30, 48, 0.85) 0%, rgba(10, 20, 35, 0.95) 100%);
-      --input-bg: rgba(0, 0, 0, 0.3);
-      --switcher-bg: rgba(255, 255, 255, 0.08);
-
-      --switcher-active-bg: rgba(255, 255, 255, 0.15);
-      --switcher-active-text: #fff;
-
-      --btn-glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-      --btn-glass-border: rgba(255, 255, 255, 0.15);
-      --btn-accent-bg: linear-gradient(90deg, rgba(0, 242, 160, 0.15), rgba(0, 201, 255, 0.15));
-      --btn-text: #ffffff;
-    }
-
-    [data-theme="light"] {
-      --bg-img-desktop: url('/images/background-desktop-white.png');
-      --bg-img-mobile: url('/images/background-mobile-white.png');
-
-      --bg-main: #f0f4f8;
-      --bg-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));
-      --text-main: #1a202c;
-      --text-dim: #4a5568;
-
-      --glass-bg: rgba(255, 255, 255, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.6);
-      --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-
-      --modal-bg: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(240,245,250,0.95));
-      --input-bg: rgba(255, 255, 255, 0.5);
-      --switcher-bg: rgba(0, 0, 0, 0.05);
-
-      --switcher-active-bg: #fff;
-      --switcher-active-text: #1a202c;
-
-      --btn-glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5));
-      --btn-glass-border: rgba(255, 255, 255, 0.8);
-      --btn-accent-bg: linear-gradient(90deg, rgba(0, 242, 160, 0.25), rgba(0, 201, 255, 0.25));
-      --btn-text: #010a1a;
-    }
-
-    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-    html, body { height: 100%; margin: 0; font-family: 'Montserrat', sans-serif; background: var(--bg-main); color: var(--text-main); }
-    body.modal-open { overflow: hidden; }
-
-    .start-1 {
-      min-height: 100vh;
-      position: relative;
-      background-image: var(--bg-img-desktop);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      display: flex; flex-direction: column; justify-content: space-between;
-      padding: 28px 24px;
-      overflow: hidden;
-      transition: background-image 0.3s ease;
-    }
-    @media (max-width: 768px) { .start-1 { background-image: var(--bg-img-mobile); } }
-
-    .start-1::before {
-      content: ""; position: absolute; inset: 0;
-      background: var(--bg-overlay);
-      z-index: 1; pointer-events: none;
-    }
-
-    .top-bar, .hero, .button-continue { position: relative; z-index: 2; }
-    .top-bar { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; }
-
-    .lang-rect {
-      display: inline-flex;
-      position: relative;
-      padding: 4px;
-      background: var(--switcher-bg);
-      backdrop-filter: blur(15px);
-      border: 1px solid var(--glass-border);
-      border-radius: 100px;
-      overflow: hidden;
-    }
-
-    .lang-pill {
-      position: relative;
-      z-index: 2;
-      padding: 8px 20px;
-      border-radius: 100px;
-      font-size: 13px; font-weight: 700;
-      cursor: pointer;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      transition: color 0.3s ease;
-      background: transparent !important;
-      box-shadow: none !important;
-      border: none !important;
-      user-select: none;
-    }
-
-    .lang-pill.active { color: var(--switcher-active-text); }
-
-    .glider {
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      height: calc(100% - 8px);
-      background: var(--switcher-active-bg);
-      border-radius: 100px;
-      z-index: 1;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      width: 0;
-      transform: translateX(0);
-    }
-    [data-theme="light"] .glider { border: 1px solid rgba(0,0,0,0.05); }
-
-    .theme-btn {
-      width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: var(--transition);
-    }
-    .theme-btn:hover { background: var(--glass-bg); }
-    .theme-btn img { width: 22px; height: 22px; transition: var(--transition); }
-    [data-theme="dark"] .theme-btn img { filter: invert(1) brightness(1.2); }
-
-    .hero { max-width: 900px; margin: auto; text-align: center; }
-    .hero-title {
-      font-size: clamp(50px, 10vw, 120px); font-weight: 900; line-height: 1; margin-bottom: 24px;
-      background: linear-gradient(135deg, var(--text-main) 30%, var(--accent-green) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      letter-spacing: -2px;
-      text-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .hero-desc {
-      font-size: clamp(16px, 2.5vw, 24px); line-height: 1.5; color: var(--text-dim);
-      max-width: 650px; margin: 0 auto; font-weight: 500;
-    }
-
-    .button-continue { display: flex; justify-content: center; padding-bottom: 40px; }
-    .continue {
-      background: var(--btn-glass-bg);
-      border: 1px solid var(--btn-glass-border);
-      color: var(--btn-text);
-      padding: 24px 60px;
-      border-radius: 100px;
-      font-size: 18px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 2px; text-decoration: none;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      user-select: none;
-    }
-    .continue:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(0, 242, 160, 0.15);
-      border-color: var(--accent-green);
-      letter-spacing: 3px;
-    }
-
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(8px); z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; visibility: hidden; transition: 0.3s;
-      padding: 16px;
-    }
-    .modal-overlay.active { opacity: 1; visibility: visible; }
-
-    .modal {
-      background: var(--modal-bg);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border); border-radius: 32px;
-      width: min(520px, 100%); padding: 48px 32px; position: relative;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.5); text-align: center;
-      max-height: 90vh; overflow-y: auto;
-    }
-
-    .modal-close {
-      position: absolute; top: 20px; right: 20px; background: none; border: none;
-      font-size: 28px; color: var(--text-dim); cursor: pointer; transition: 0.2s;
-    }
-    .modal-close:hover { color: var(--text-main); transform: rotate(90deg); }
-
-    .modal-title { font-size: 32px; font-weight: 800; margin-bottom: 12px; color: var(--text-main); }
-    .modal-desc { font-size: 15px; color: var(--text-dim); margin-bottom: 18px; line-height: 1.6; }
-
-    .input-group { margin-bottom: 16px; text-align: left; }
-    .input-label {
-      font-size: 12px; font-weight: 700; color: var(--accent-green); margin-bottom: 8px; display: block;
-      text-transform: uppercase; letter-spacing: 1px;
-    }
-
-    .modal-input, .modal-select, .modal-textarea {
-      width: 100%; background: var(--input-bg); border: 1px solid var(--glass-border);
-      border-radius: 16px; padding: 16px; color: var(--text-main); font-family: inherit; font-size: 16px;
-      transition: 0.3s; outline: none;
-    }
-    .modal-textarea { resize: vertical; min-height: 90px; }
-
-    .modal-input:focus, .modal-select:focus, .modal-textarea:focus {
-      border-color: var(--accent-green);
-      background: rgba(0, 242, 160, 0.05);
-    }
-    ::placeholder { color: var(--text-dim); opacity: 0.55; }
-
-    .modal-btn {
-      width: 100%;
-      background: var(--btn-accent-bg);
-      border: 1px solid var(--glass-border);
-      padding: 18px; border-radius: 16px;
-      color: var(--btn-text);
-      font-size: 16px; font-weight: 800; text-transform: uppercase; cursor: pointer;
-      transition: 0.3s; margin-top: 10px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      user-select: none;
-    }
-    .modal-btn:hover {
-      background: linear-gradient(90deg, rgba(0, 242, 160, 0.3), rgba(0, 201, 255, 0.3));
-      border-color: var(--accent-green);
-      transform: scale(1.02);
-    }
-    .modal-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .btn-loading {
-      position: relative;
-    }
-    .btn-loading::after{
-      content: "";
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 2px solid rgba(255,255,255,0.6);
-      border-top-color: rgba(255,255,255,0.0);
-      border-radius: 50%;
-      margin-left: 10px;
-      vertical-align: -2px;
-      animation: spin 0.75s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .auth-switch {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 18px;
-      background: var(--switcher-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 6px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    .auth-chip {
-      flex: 1;
-      border: none;
-      cursor: pointer;
-      padding: 12px 10px;
-      border-radius: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      background: transparent;
-      color: var(--text-dim);
-      transition: 0.25s ease;
-      user-select: none;
-    }
-    .auth-chip.active {
-      background: var(--switcher-active-bg);
-      color: var(--switcher-active-text);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-    }
-
-    .role-container { display: flex; gap: 16px; margin-top: 20px; }
-    @media (max-width: 520px){ .role-container { flex-direction: column; } }
-
-    .role-card {
-      flex: 1; background: var(--glass-bg); border: 1px solid var(--glass-border);
-      padding: 22px 16px; border-radius: 24px; cursor: pointer; transition: 0.3s;
-    }
-    .role-card:hover {
-      border-color: var(--accent-green);
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      background: rgba(255,255,255,0.08);
-    }
-    .role-icon-circle {
-      width: 56px; height: 56px; background: rgba(0, 242, 160, 0.1); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
-    }
-    .role-icon-circle svg { width: 28px; height: 28px; fill: var(--accent-green); }
-    .role-name { font-weight: 800; font-size: 16px; margin-bottom: 4px; color: var(--text-main); }
-    .role-sub { font-size: 12px; color: var(--text-dim); }
-
-    .modal-step { display: none; }
-    .modal-step.active { display: block; animation: slideUp 0.4s ease-out; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-    .resend-link { color: var(--accent-blue); cursor: pointer; font-size: 13px; margin-top: 18px; display: inline-block; font-weight: 700; }
-    .terms { font-size: 11px; color: var(--text-dim); margin-top: 18px; }
-    .terms a { color: var(--accent-green); text-decoration: none; font-weight: 700; }
-
-    /* TOAST */
-    .toast-wrap{
-      position: fixed;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      z-index: 2000;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      pointer-events: none;
-      padding: 0 12px;
-      width: min(520px, 92%);
-    }
-    .toast {
-      pointer-events: auto;
-      background: rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      color: var(--text-main);
-      border-radius: 16px;
-      padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
-      opacity: 0;
-      transform: translateY(12px);
-      transition: 0.25s ease;
-      font-size: 14px;
-      line-height: 1.35;
-    }
-    [data-theme="light"] .toast{
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(0,0,0,0.08);
-      color: #1a202c;
-    }
-    .toast.show { opacity: 1; transform: translateY(0); }
-    .toast .left { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .toast .dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--accent-blue);
-      flex: 0 0 auto;
-      box-shadow: 0 0 0 4px rgba(0,201,255,0.12);
-    }
-    .toast.success .dot { background: var(--accent-green); box-shadow: 0 0 0 4px rgba(0,242,160,0.12); }
-    .toast.warn .dot { background: #ffcc00; box-shadow: 0 0 0 4px rgba(255,204,0,0.14); }
-    .toast .msg { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; }
-    .toast .close {
-      background: transparent; border: none; color: inherit;
-      cursor: pointer; font-size: 18px; line-height: 1;
-      opacity: 0.85; padding: 0 4px;
-    }
-    .toast .close:hover { opacity: 1; }
-
-    /* UX: shake for invalid */
-    .shake { animation: shake 0.38s ease; }
-    @keyframes shake {
-      10%, 90% { transform: translateX(-1px); }
-      20%, 80% { transform: translateX(2px); }
-      30%, 50%, 70% { transform: translateX(-4px); }
-      40%, 60% { transform: translateX(4px); }
-    }
-
-    /* small helper row in code step */
-    .hint-row{
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-dim);
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .hint-link{
-      cursor: pointer;
-      color: var(--accent-green);
-      font-weight: 800;
-      user-select: none;
-    }
-  </style>
+  <link rel="stylesheet" href="index.css" />
 </head>
 
 <body>
   <div class="start-1">
     <div class="top-bar">
-      <div class="lang-rect" aria-label="language switch">
-        <div class="glider"></div>
-        <button class="lang-pill active" data-lang="kz" type="button">Қаз</button>
-        <button class="lang-pill" data-lang="ru" type="button">Рус</button>
-      </div>
-
-      <div class="lang-rect">
+      <div class="theme-box">
         <button class="theme-btn" id="themeToggle" type="button" aria-label="theme toggle">
           <img class="sun-icon" src="https://cdn-icons-png.flaticon.com/128/66/66275.png" alt="Light Mode" style="display:none">
           <img class="moon-icon" src="https://cdn-icons-png.flaticon.com/128/702/702471.png" alt="Dark Mode">
@@ -437,563 +24,148 @@
     </div>
 
     <div class="hero">
-      <div class="hero-title" data-i18n="title">PhysX AI</div>
-      <div class="hero-desc" data-i18n="desc">
-        Физикаға дайындық платформасы. Оқушының әлсіз және күшті тақырыптарын анықтап, жеке жоспар береді.
+      <div class="hero-title">PhysX AI</div>
+      <div class="hero-desc">
+        Физикаға дайындық платформасы. Жасанды интеллект әлсіз тақырыптарды анықтап, жеке даму жоспарын құрайды.
       </div>
     </div>
 
     <div class="button-continue">
-      <a href="#" id="startLink" class="continue" data-i18n="start_btn">Бастау</a>
+      <a href="#" id="startLink" class="continue">Бастау</a>
     </div>
   </div>
 
   <div class="modal-overlay" id="authModal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" type="button" onclick="closeModal()">&times;</button>
+      <button class="modal-close" type="button" id="modalCloseBtn">&times;</button>
 
-      <!-- STEP 1: EMAIL + MODE -->
       <div class="modal-step active" id="stepEmail">
-        <div class="modal-title" id="modalTitle" data-i18n="modal_email_title">Кіру</div>
-        <div class="modal-desc" data-i18n="modal_email_desc">Жалғастыру үшін электронды поштаңызды енгізіңіз</div>
+        <div class="modal-title" id="modalTitle">Кіру</div>
+        <div class="modal-desc">Жалғастыру үшін электронды поштаңызды енгізіңіз</div>
 
         <div class="auth-switch">
-          <button type="button" class="auth-chip active" id="authLoginBtn" onclick="setAuthMode('login')" data-i18n="auth_login">Кіру</button>
-          <button type="button" class="auth-chip" id="authRegisterBtn" onclick="setAuthMode('register')" data-i18n="auth_register">Тіркелу</button>
+          <button type="button" class="auth-chip active" id="authLoginBtn">Кіру</button>
+          <button type="button" class="auth-chip" id="authRegisterBtn">Тіркелу</button>
         </div>
 
         <div class="input-group">
-          <label class="input-label" data-i18n="lbl_email">электронды пошта</label>
+          <label class="input-label">Электронды пошта</label>
           <input type="email" class="modal-input" placeholder="example@physx.kz" id="emailInput" autocomplete="email">
         </div>
 
-        <button class="modal-btn" type="button" onclick="sendCode()" id="mainAuthBtn" data-i18n="btn_get_code">Код алу</button>
+        <div class="input-group password-group" id="passwordGroup">
+          <label class="input-label">Құпиясөз</label>
+          <input type="password" class="modal-input" placeholder="" id="passwordInput" autocomplete="current-password">
+          <button type="button" class="password-toggle" id="passwordToggleBtn">
+            <span id="eyeIcon">👁️</span>
+          </button>
+        </div>
+
+        <button class="modal-btn" type="button" id="mainAuthBtn">Жалғастыру</button>
 
         <p class="terms">
-          <span data-i18n="terms_text">Жалғастыра отырып, сіз келісесіз:</span>
-          <a href="#" onclick="event.preventDefault(); showToast(getText('terms_toast'),'info',3500);" data-i18n="terms_link">қолдану ережелері</a>
+          <span>Жалғастыра отырып, сіз келісесіз:</span>
+          <a href="#" id="termsLink">қолдану ережелері</a>
         </p>
       </div>
 
-      <!-- STEP 2: CODE -->
-      <div class="modal-step" id="stepCode">
-        <div class="modal-title" data-i18n="modal_code_title">Растау</div>
-        <div class="modal-desc">
-          <span data-i18n="modal_code_desc">Код жіберілді:</span>
-          <strong id="displayEmail" style="color:var(--text-main)"></strong>
-        </div>
-
-        <div class="input-group">
-          <label class="input-label" data-i18n="lbl_code">Растау коды</label>
-          <input inputmode="numeric" pattern="[0-9]*" maxlength="6" class="modal-input" placeholder=" " id="codeInput" autocomplete="one-time-code">
-        </div>
-
-        <button class="modal-btn" type="button" onclick="verifyCode()" id="verifyBtn" data-i18n="btn_confirm">Растау</button>
-
-        <div class="hint-row">
-          <span data-i18n="code_hint">Код 6 саннан тұрады</span>
-          <span class="hint-link" onclick="resendCode()" data-i18n="btn_resend">Қайта жіберу</span>
-        </div>
-
-        <div class="resend-link" onclick="backToEmail()" data-i18n="btn_change_email">Поштаны өзгерту</div>
-      </div>
-
-      <!-- STEP 3: ROLE -->
-      <div class="modal-step" id="stepRole">
-        <div class="modal-title" data-i18n="role_title">Сіз кімсіз?</div>
-
-        <div class="role-container">
-          <div class="role-card" onclick="chooseRole('student')" role="button" tabindex="0">
-            <div class="role-icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            </div>
-            <div class="role-name" data-i18n="role_student">Оқушы</div>
-            <div class="role-sub" data-i18n="role_student_sub">Физиканы үйренемін</div>
-          </div>
-
-          <div class="role-card" onclick="chooseRole('teacher')" role="button" tabindex="0">
-            <div class="role-icon-circle">
-              <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 4h10v2H4V8zm0 4h16v2H4v-2zm0 4h10v2H4v-2z"/></svg>
-            </div>
-            <div class="role-name" data-i18n="role_teacher">Мұғалім</div>
-            <div class="role-sub" data-i18n="role_teacher_sub">Оқушыларды дайындаймын</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 4: REGISTRATION -->
       <div class="modal-step" id="stepReg">
-        <div class="modal-title" data-i18n="reg_title">Тіркелу</div>
+        <div class="modal-title">Тіркелу</div>
 
         <div class="input-group">
-          <label class="input-label" data-i18n="lbl_name">Есіміңіз</label>
+          <label class="input-label">Есіміңіз</label>
           <input type="text" class="modal-input" id="regName" placeholder="" autocomplete="name">
         </div>
 
-        <!-- STUDENT FIELDS -->
-        <div id="studentFields" style="display:none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--glass-border);">
-          <div class="input-group">
-            <label class="input-label" data-i18n="lbl_grade">Сынып</label>
-            <select class="modal-select" id="regGrade">
-              <option value="9">9</option>
-                  <option value="10">10</option><option value="11">11</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label class="input-label" data-i18n="lbl_goal">Мақсатыңыз</label>
-            <select class="modal-select" id="regGoal">
-              <option value="ent" data-i18n="goal_unt">ҰБТ</option>
-              <option value="olymp" data-i18n="goal_olymp">Олимпиада</option>
-              <option value="school" data-i18n="goal_school">Мектеп бағдарламасы</option>
-            </select>
+        <div class="input-group">
+          <label class="input-label">Сынып</label>
+
+          <input class="sr-only" id="regGrade" value="9" />
+
+          <div class="cselect" data-name="grade" data-target="regGrade">
+            <button type="button" class="cselect-btn" aria-haspopup="listbox" aria-expanded="false">
+              <div class="cselect-value">
+                <div class="top">Сынып</div>
+                <div class="current" data-current>9 сынып</div>
+</div>
+              <div class="cselect-arrow" aria-hidden="true">
+                <svg viewBox="0 0 18 12"><path d="M2 2.25L9 9.25L16 2.25"/></svg>
+              </div>
+            </button>
+
+            <div class="cselect-panel" role="listbox" tabindex="-1">
+<ul class="cselect-list">
+                <li class="cselect-item" role="option" tabindex="-1" data-value="9" aria-selected="true">
+                  <span>9 сынып</span>
+                  <span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                  </span>
+                </li>
+                <li class="cselect-item" role="option" tabindex="-1" data-value="10" aria-selected="false">
+                  <span>10 сынып</span>
+                  <span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                  </span>
+                </li>
+                <li class="cselect-item" role="option" tabindex="-1" data-value="11" aria-selected="false">
+                  <span>11 сынып</span>
+                  <span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <!-- TEACHER FIELDS -->
-        <div id="teacherFields" style="display:none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--glass-border);">
-          <div class="input-group">
-            <label class="input-label" data-i18n="lbl_exp">Тәжірибе (жыл)</label>
-            <input type="number" class="modal-input" id="regExp" min="0" max="60" placeholder="">
-          </div>
-          <div class="input-group">
-            <label class="input-label" data-i18n="lbl_about">Қосымша</label>
-            <textarea class="modal-textarea" id="regAbout" placeholder=""></textarea>
+        <div class="input-group">
+          <label class="input-label">Мақсатыңыз</label>
+
+          <input class="sr-only" id="regGoal" value="ent" />
+
+          <div class="cselect" data-name="goal" data-target="regGoal">
+            <button type="button" class="cselect-btn" aria-haspopup="listbox" aria-expanded="false">
+              <div class="cselect-value">
+                <div class="top">Мақсат</div>
+                <div class="current" data-current>ҰБТ</div>
+</div>
+              <div class="cselect-arrow" aria-hidden="true">
+                <svg viewBox="0 0 18 12"><path d="M2 2.25L9 9.25L16 2.25"/></svg>
+              </div>
+            </button>
+
+            <div class="cselect-panel" role="listbox" tabindex="-1">
+<ul class="cselect-list">
+                <li class="cselect-item" role="option" tabindex="-1" data-value="ent" aria-selected="true">
+                  <span>ҰБТ</span>
+<span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                  </span>
+                </li>
+                <li class="cselect-item" role="option" tabindex="-1" data-value="olymp" aria-selected="false">
+                  <span>Олимпиада</span>
+<span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                  </span>
+                </li>
+                <li class="cselect-item" role="option" tabindex="-1" data-value="school" aria-selected="false">
+                  <span>Мектеп бағдарламасы</span>
+<span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <button class="modal-btn" type="button" onclick="finishRegistration()" data-i18n="btn_save">Тіркелуді аяқтау</button>
+        <button class="modal-btn" type="button" id="finishRegBtn">Тіркелуді аяқтау</button>
       </div>
     </div>
   </div>
 
   <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
 
-  <script>
-    /* ===== 1) TRANSLATIONS ===== */
-    const translations = {
-      kz: {
-        title: "PhysX AI",
-        desc: "Физикаға дайындық платформасы. Жасанды интеллект әлсіз тақырыптарды анықтап, жеке даму жоспарын құрайды.",
-        start_btn: "Бастау",
-
-        modal_email_title: "Кіру",
-        modal_email_desc: "Жалғастыру үшін электронды поштаңызды енгізіңіз",
-        auth_login: "Кіру",
-        auth_register: "Тіркелу",
-        lbl_email: "Электронды пошта",
-        btn_get_code: "Код алу",
-
-        modal_code_title: "Растау",
-        modal_code_desc: "Код жіберілді:",
-        lbl_code: "Растау коды",
-        btn_confirm: "Растау",
-        btn_change_email: "Поштаны өзгерту",
-        btn_resend: "Қайта жіберу",
-        code_hint: "Код 6 саннан тұрады",
-
-        role_title: "Сіз кімсіз?",
-        role_student: "Оқушы",
-        role_student_sub: "Физиканы үйренемін",
-        role_teacher: "Мұғалім",
-        role_teacher_sub: "Оқушыларды дайындаймын",
-
-        reg_title: "Тіркелу",
-        lbl_name: "Есіміңіз",
-        lbl_grade: "Сынып",
-        lbl_goal: "Мақсатыңыз",
-        lbl_exp: "Мектеп",
-        lbl_about: "Қосымша",
-
-        goal_unt: "ҰБТ",
-        goal_olymp: "Олимпиада",
-        goal_school: "Мектеп бағдарламасы",
-
-        btn_save: "Тіркелуді аяқтау",
-        terms_text: "Жалғастыра отырып, сіз келісесіз:",
-        terms_link: "қолдану ережелері",
-        terms_toast: "Ережелерді кейін жеке бетке шығарасың (terms.html сияқты)."
-      },
-      ru: {
-        title: "PhysX AI",
-        desc: "Платформа для подготовки по физике. ИИ выявляет слабые темы и строит персональный план обучения.",
-        start_btn: "Начать",
-
-        modal_email_title: "Вход",
-        modal_email_desc: "Введите электронную почту для продолжения",
-        auth_login: "Войти",
-        auth_register: "Регистрация",
-        lbl_email: "Email",
-        btn_get_code: "Получить код",
-
-        modal_code_title: "Подтверждение",
-        modal_code_desc: "Код отправлен на:",
-        lbl_code: "Код из письма",
-        btn_confirm: "Подтвердить",
-        btn_change_email: "Изменить почту",
-        btn_resend: "Отправить снова",
-        code_hint: "Код состоит из 6 цифр",
-
-        role_title: "Кто вы?",
-        role_student: "Ученик",
-        role_student_sub: "Хочу учить физику",
-        role_teacher: "Учитель",
-        role_teacher_sub: "Готовлю учеников",
-
-        reg_title: "Регистрация",
-        lbl_name: "Ваше имя",
-        lbl_grade: "Класс",
-        lbl_goal: "Цель",
-        lbl_exp: "Школа",
-        lbl_about: "О себе (кратко)",
-
-        goal_unt: "ЕНТ",
-        goal_olymp: "Олимпиада",
-        goal_school: "Школьная программа",
-
-        btn_save: "Завершить",
-        terms_text: "Продолжая, вы соглашаетесь с",
-        terms_link: "условиями использования",
-        terms_toast: "Сделай отдельную страницу terms.html и привяжи ссылку."
-      }
-    };
-
-    function getLang(){ return localStorage.getItem("lang") || "kz"; }
-    function getText(key){
-      const lang = getLang();
-      return (translations[lang] && translations[lang][key]) ? translations[lang][key] : key;
-    }
-
-    /* ===== 2) TOAST ===== */
-    const toastWrap = document.getElementById('toastWrap');
-    function showToast(message, type = 'info', timeout = 3000) {
-      if(!toastWrap) return;
-      const toast = document.createElement('div');
-      toast.className = `toast ${type}`;
-      toast.innerHTML = `
-        <div class="left">
-          <div class="dot"></div>
-          <div class="msg">${escapeHtml(message)}</div>
-        </div>
-        <button class="close" aria-label="close">&times;</button>
-      `;
-      toastWrap.appendChild(toast);
-      requestAnimationFrame(() => toast.classList.add('show'));
-
-      const closeBtn = toast.querySelector('.close');
-      const remove = () => {
-        toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 250);
-      };
-
-      closeBtn.addEventListener('click', remove);
-      setTimeout(remove, timeout);
-    }
-    function escapeHtml(str) {
-      return String(str)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'",'&#039;');
-    }
-
-    /* ===== 3) STATE ===== */
-    let authMode = 'login';      // 'login' | 'register'
-    let currentRole = 'student'; // 'student' | 'teacher'
-    let lastEmail = '';
-    let isBusy = false;
-
-    /* ===== 4) INIT (LANG + THEME) ===== */
-    window.addEventListener('load', () => {
-      // theme
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      syncThemeIcons(savedTheme);
-
-      // lang
-      setLanguage(getLang());
-
-      // role-card keyboard access
-      document.querySelectorAll('.role-card').forEach(card => {
-        card.addEventListener('keydown', (e) => {
-          if(e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            card.click();
-          }
-        });
-      });
-    });
-
-    /* ===== 5) LANGUAGE SWITCH ===== */
-    function setLanguage(lang) {
-      document.querySelectorAll(".lang-pill").forEach(p => p.classList.remove("active"));
-
-      const pills = document.querySelectorAll(`.lang-pill[data-lang="${lang}"]`);
-      pills.forEach(p => {
-        p.classList.add("active");
-        const parent = p.closest('.lang-rect');
-        const glider = parent.querySelector('.glider');
-        if (glider) {
-          // wait layout
-          requestAnimationFrame(() => {
-            glider.style.width = `${p.offsetWidth}px`;
-            glider.style.transform = `translateX(${p.offsetLeft - 4}px)`;
-          });
-        }
-      });
-
-      if(translations[lang]) {
-        document.querySelectorAll("[data-i18n]").forEach(el => {
-          const key = el.dataset.i18n;
-          if (translations[lang][key]) {
-            el.innerHTML = translations[lang][key];
-          }
-        });
-      }
-
-      localStorage.setItem("lang", lang);
-      setAuthMode(authMode);
-    }
-
-    document.querySelectorAll(".lang-pill").forEach(p => {
-      p.addEventListener("click", () => setLanguage(p.dataset.lang));
-    });
-
-    /* ===== 6) THEME ===== */
-    function syncThemeIcons(theme){
-      const sun = document.querySelector('.sun-icon');
-      const moon = document.querySelector('.moon-icon');
-      if(!sun || !moon) return;
-      sun.style.display = theme === 'dark' ? 'none' : 'block';
-      moon.style.display = theme === 'dark' ? 'block' : 'none';
-    }
-    function toggleTheme() {
-      const html = document.documentElement;
-      const current = html.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      syncThemeIcons(next);
-    }
-    document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
-
-    /* ===== 7) MODAL CONTROL ===== */
-    const modal = document.getElementById('authModal');
-    const steps = ['stepEmail', 'stepCode', 'stepRole', 'stepReg'];
-
-    function showStep(stepId) {
-      steps.forEach(id => document.getElementById(id)?.classList.remove('active'));
-      const target = document.getElementById(stepId);
-      target?.classList.add('active');
-
-      // autofocus UX
-      if(stepId === 'stepEmail') setTimeout(() => document.getElementById('emailInput')?.focus(), 50);
-      if(stepId === 'stepCode')  setTimeout(() => document.getElementById('codeInput')?.focus(), 50);
-      if(stepId === 'stepReg')   setTimeout(() => document.getElementById('regName')?.focus(), 50);
-    }
-
-    function openModal(e) {
-      if(e) e.preventDefault();
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-
-      showStep('stepEmail');
-      setAuthMode('login');
-    }
-
-    function closeModal() {
-      modal.classList.remove('active');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-    }
-
-    function backToEmail() {
-      showStep('stepEmail');
-    }
-
-    modal?.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape' && modal.classList.contains('active')) closeModal();
-    });
-
-    document.getElementById('startLink')?.addEventListener('click', openModal);
-
-    /* ===== 8) AUTH MODE ===== */
-    function setAuthMode(mode) {
-      authMode = mode;
-
-      const loginBtn = document.getElementById('authLoginBtn');
-      const regBtn   = document.getElementById('authRegisterBtn');
-      loginBtn?.classList.toggle('active', mode === 'login');
-      regBtn?.classList.toggle('active', mode === 'register');
-
-      const titleEl = document.querySelector('#stepEmail .modal-title');
-      const descEl  = document.querySelector('#stepEmail .modal-desc');
-      const mainBtn = document.getElementById('mainAuthBtn');
-
-      if (!titleEl || !descEl || !mainBtn) return;
-
-      if (mode === 'login') {
-        titleEl.innerHTML = getText('modal_email_title');
-        descEl.innerHTML  = getText('modal_email_desc');
-        mainBtn.innerHTML = getText('btn_get_code');
-      } else {
-        titleEl.innerHTML = getText('reg_title');
-        descEl.innerHTML  = (getLang() === 'ru') ? "Введите Email для регистрации" : "Тіркелу үшін Email енгізіңіз";
-        mainBtn.innerHTML = (getLang() === 'ru') ? "Продолжить" : "Жалғастыру";
-      }
-    }
-
-    /* ===== 9) HELPERS ===== */
-    function setBusy(btn, busy){
-      isBusy = busy;
-      if(!btn) return;
-      btn.disabled = !!busy;
-      btn.classList.toggle('btn-loading', !!busy);
-    }
-    function markInvalid(el){
-      if(!el) return;
-      el.style.borderColor = '#ff4444';
-      el.style.backgroundColor = 'rgba(255, 68, 68, 0.08)';
-      el.classList.add('shake');
-      setTimeout(() => el.classList.remove('shake'), 420);
-      setTimeout(() => { el.style.borderColor = ''; el.style.backgroundColor=''; }, 1800);
-    }
-    function isValidEmail(email){
-      // simple and safe email check
-      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-    }
-
-    /* ===== 10) ENTER TO SUBMIT ===== */
-    document.addEventListener('keydown', (e) => {
-      if(!modal.classList.contains('active')) return;
-
-      if(e.key === 'Enter'){
-        const activeStep = steps.find(id => document.getElementById(id)?.classList.contains('active'));
-        if(activeStep === 'stepEmail') { e.preventDefault(); sendCode(); }
-        if(activeStep === 'stepCode')  { e.preventDefault(); verifyCode(); }
-        if(activeStep === 'stepReg')   { e.preventDefault(); finishRegistration(); }
-      }
-    });
-
-    // Auto go when code reaches 6 digits
-    document.getElementById('codeInput')?.addEventListener('input', (e) => {
-      const v = String(e.target.value || '').replace(/\D/g,'').slice(0,6);
-      e.target.value = v;
-      if(v.length === 6) verifyCode();
-    });
-
-    /* ===== 11) AUTH FLOW (SIMULATION FRONT-END) ===== */
-    function sendCode() {
-      if(isBusy) return;
-
-      const emailInput = document.getElementById('emailInput');
-      const email = (emailInput?.value || '').trim();
-
-      if (!isValidEmail(email)) {
-        markInvalid(emailInput);
-        showToast((getLang()==='ru') ? "Введите корректный Email" : "Email дұрыс жазыңыз", "warn");
-        return;
-      }
-
-      lastEmail = email;
-      document.getElementById('displayEmail').textContent = email;
-
-      const btn = document.getElementById('mainAuthBtn');
-      setBusy(btn, true);
-
-      // имитация отправки (замени на реальный fetch)
-      setTimeout(() => {
-        setBusy(btn, false);
-        showToast((getLang()==='ru') ? "Код отправлен" : "Код жіберілді", "success");
-        showStep('stepCode');
-      }, 650);
-    }
-
-    function resendCode(){
-      if(!lastEmail){
-        showToast((getLang()==='ru') ? "Сначала введите Email" : "Алдымен Email енгізіңіз", "warn");
-        backToEmail();
-        return;
-      }
-      showToast((getLang()==='ru') ? "Код отправлен повторно" : "Код қайта жіберілді", "success");
-    }
-
-    function verifyCode() {
-      if(isBusy) return;
-
-      const codeInput = document.getElementById('codeInput');
-      const code = (codeInput?.value || '').trim();
-
-      if (!/^\d{4,6}$/.test(code)) {
-        markInvalid(codeInput);
-        showToast((getLang()==='ru') ? "Введите код (4–6 цифр)" : "Код енгізіңіз (4–6 сан)", "warn");
-        return;
-      }
-
-      const btn = document.getElementById('verifyBtn');
-      setBusy(btn, true);
-
-      // имитация проверки (замени на реальный fetch)
-      setTimeout(() => {
-        setBusy(btn, false);
-
-        if (authMode === 'login') {
-          showToast((getLang()==='ru') ? "Успешный вход!" : "Сәтті кірдіңіз!", "success", 1200);
-          setTimeout(() => window.location.href = "home.html", 600);
-          return;
-        }
-
-        showToast((getLang()==='ru') ? "Код подтверждён" : "Код расталды", "success");
-        showStep('stepRole');
-      }, 650);
-    }
-
-    function chooseRole(role) {
-      currentRole = role;
-
-      const sFields = document.getElementById('studentFields');
-      const tFields = document.getElementById('teacherFields');
-
-      if(sFields) sFields.style.display = (role === 'student') ? 'block' : 'none';
-      if(tFields) tFields.style.display = (role === 'teacher') ? 'block' : 'none';
-
-      showStep('stepReg');
-    }
-
-    function finishRegistration() {
-      if(isBusy) return;
-
-      const nameInput = document.getElementById('regName');
-      const name = (nameInput?.value || '').trim();
-      if (!name) {
-        markInvalid(nameInput);
-        showToast((getLang()==='ru') ? "Введите имя" : "Атыңызды жазыңыз", "warn");
-        return;
-      }
-
-      const data = { role: currentRole, name, email: lastEmail };
-
-      if(currentRole === 'student'){
-        data.grade = document.getElementById('regGrade')?.value || '';
-        data.goal  = document.getElementById('regGoal')?.value || '';
-      } else {
-        data.exp   = document.getElementById('regExp')?.value || '';
-        data.about = document.getElementById('regAbout')?.value || '';
-      }
-
-      const btn = document.querySelector('#stepReg .modal-btn');
-      setBusy(btn, true);
-
-      // имитация отправки регистрации
-      setTimeout(() => {
-        setBusy(btn, false);
-        console.log("Registration Data:", data);
-        showToast((getLang()==='ru') ? "Регистрация успешна!" : "Тіркелу сәтті аяқталды!", "success", 1200);
-        setTimeout(() => window.location.href = "home.html", 700);
-      }, 750);
-    }
-  </script>
+  <script src="index.js"></script>
 </body>
 </html>
