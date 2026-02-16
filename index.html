@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="kz" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +8,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="index.css" />
 </head>
@@ -17,7 +19,8 @@
     <div class="top-bar">
       <div class="theme-box">
         <button class="theme-btn" id="themeToggle" type="button" aria-label="theme toggle">
-          <img class="sun-icon" src="https://cdn-icons-png.flaticon.com/128/66/66275.png" alt="Light Mode" style="display:none">
+          <img class="sun-icon" src="https://cdn-icons-png.flaticon.com/128/66/66275.png" alt="Light Mode"
+            style="display:none">
           <img class="moon-icon" src="https://cdn-icons-png.flaticon.com/128/702/702471.png" alt="Dark Mode">
         </button>
       </div>
@@ -57,7 +60,7 @@
           <label class="input-label">Құпиясөз</label>
           <input type="password" class="modal-input" placeholder="" id="passwordInput" autocomplete="current-password">
           <button type="button" class="password-toggle" id="passwordToggleBtn">
-            <span id="eyeIcon">👁️</span>
+            <span id="eyeIcon">👁</span>
           </button>
         </div>
 
@@ -87,30 +90,46 @@
               <div class="cselect-value">
                 <div class="top">Сынып</div>
                 <div class="current" data-current>9 сынып</div>
-</div>
+              </div>
               <div class="cselect-arrow" aria-hidden="true">
-                <svg viewBox="0 0 18 12"><path d="M2 2.25L9 9.25L16 2.25"/></svg>
+                <svg viewBox="0 0 18 12">
+                  <path d="M2 2.25L9 9.25L16 2.25" />
+                </svg>
               </div>
             </button>
 
             <div class="cselect-panel" role="listbox" tabindex="-1">
-<ul class="cselect-list">
+              <ul class="cselect-list">
+                <li class="cselect-item" role="option" tabindex="-1" data-value="9" aria-selected="true">
+                  <span>8 сынып</span>
+                  <span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18">
+                      <path d="M4 9.5l3 3 7-8" />
+                    </svg>
+                  </span>
+                </li>
                 <li class="cselect-item" role="option" tabindex="-1" data-value="9" aria-selected="true">
                   <span>9 сынып</span>
                   <span class="cselect-check" aria-hidden="true">
-                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                    <svg viewBox="0 0 18 18">
+                      <path d="M4 9.5l3 3 7-8" />
+                    </svg>
                   </span>
                 </li>
                 <li class="cselect-item" role="option" tabindex="-1" data-value="10" aria-selected="false">
                   <span>10 сынып</span>
                   <span class="cselect-check" aria-hidden="true">
-                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                    <svg viewBox="0 0 18 18">
+                      <path d="M4 9.5l3 3 7-8" />
+                    </svg>
                   </span>
                 </li>
                 <li class="cselect-item" role="option" tabindex="-1" data-value="11" aria-selected="false">
                   <span>11 сынып</span>
                   <span class="cselect-check" aria-hidden="true">
-                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                    <svg viewBox="0 0 18 18">
+                      <path d="M4 9.5l3 3 7-8" />
+                    </svg>
                   </span>
                 </li>
               </ul>
@@ -128,30 +147,38 @@
               <div class="cselect-value">
                 <div class="top">Мақсат</div>
                 <div class="current" data-current>ҰБТ</div>
-</div>
+              </div>
               <div class="cselect-arrow" aria-hidden="true">
-                <svg viewBox="0 0 18 12"><path d="M2 2.25L9 9.25L16 2.25"/></svg>
+                <svg viewBox="0 0 18 12">
+                  <path d="M2 2.25L9 9.25L16 2.25" />
+                </svg>
               </div>
             </button>
 
             <div class="cselect-panel" role="listbox" tabindex="-1">
-<ul class="cselect-list">
+              <ul class="cselect-list">
                 <li class="cselect-item" role="option" tabindex="-1" data-value="ent" aria-selected="true">
                   <span>ҰБТ</span>
-<span class="cselect-check" aria-hidden="true">
-                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                  <span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18">
+                      <path d="M4 9.5l3 3 7-8" />
+                    </svg>
                   </span>
                 </li>
                 <li class="cselect-item" role="option" tabindex="-1" data-value="olymp" aria-selected="false">
                   <span>Олимпиада</span>
-<span class="cselect-check" aria-hidden="true">
-                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                  <span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18">
+                      <path d="M4 9.5l3 3 7-8" />
+                    </svg>
                   </span>
                 </li>
                 <li class="cselect-item" role="option" tabindex="-1" data-value="school" aria-selected="false">
                   <span>Мектеп бағдарламасы</span>
-<span class="cselect-check" aria-hidden="true">
-                    <svg viewBox="0 0 18 18"><path d="M4 9.5l3 3 7-8"/></svg>
+                  <span class="cselect-check" aria-hidden="true">
+                    <svg viewBox="0 0 18 18">
+                      <path d="M4 9.5l3 3 7-8" />
+                    </svg>
                   </span>
                 </li>
               </ul>
@@ -168,4 +195,5 @@
 
   <script src="index.js"></script>
 </body>
+
 </html>

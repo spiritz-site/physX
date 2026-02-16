@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="kk" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>physX | Сынама ҰБТ</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+
   <style>
     /* CORE THEME VARIABLES */
     :root {
@@ -24,8 +25,14 @@
       --font: 'Manrope', sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; outline: none; }
-    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
     body {
       font-family: var(--font);
       background: var(--bg-body);
@@ -48,24 +55,43 @@
 
     /* HEADER */
     .top-bar {
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 20px 24px;
       z-index: 10;
     }
-    .brand-logo { font-weight: 800; font-size: 18px; letter-spacing: -0.5px; }
-    
-    .close-btn {
-      background: rgba(255,255,255,0.1);
-      border: none; width: 36px; height: 36px; border-radius: 50%;
-      color: var(--text-main); display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: 0.2s;
+
+    .brand-logo {
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.5px;
     }
-    .close-btn:active { transform: scale(0.9); background: rgba(255,255,255,0.2); }
+
+    .close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .close-btn:active {
+      transform: scale(0.9);
+      background: rgba(255, 255, 255, 0.2);
+    }
 
     /* QUIZ CONTAINER */
     .quiz-layout {
       flex: 1;
-      display: flex; flex-direction: column;
+      display: flex;
+      flex-direction: column;
       padding: 0 20px 40px 20px;
       max-width: 600px;
       margin: 0 auto;
@@ -76,12 +102,26 @@
     /* PROGRESS HEADER */
     .progress-area {
       margin-bottom: 20px;
-      display: flex; justify-content: space-between; align-items: flex-end;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
-    .q-counter { font-size: 13px; color: var(--text-sec); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-    .score-badge { 
-      font-size: 14px; font-weight: 700; color: var(--primary); 
-      background: rgba(0, 242, 160, 0.1); padding: 4px 12px; border-radius: 100px;
+
+    .q-counter {
+      font-size: 13px;
+      color: var(--text-sec);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .score-badge {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(0, 242, 160, 0.1);
+      padding: 4px 12px;
+      border-radius: 100px;
     }
 
     /* QUESTION CARD */
@@ -90,17 +130,27 @@
       text-align: center;
       margin-bottom: 24px;
       min-height: 180px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-direction: column;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
+
     .q-text {
-      font-size: 18px; font-weight: 700; line-height: 1.5;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.5;
       animation: fadeUp 0.4s ease-out;
     }
+
     .topic-tag {
-        font-size: 12px; color: var(--accent); margin-bottom: 10px;
-        text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
     }
 
     /* OPTIONS GRID */
@@ -112,33 +162,47 @@
     }
 
     .option-btn {
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--surface-border);
       padding: 18px 20px;
       border-radius: 16px;
       color: var(--text-main);
-      font-size: 15px; font-weight: 600; font-family: var(--font);
+      font-size: 15px;
+      font-weight: 600;
+      font-family: var(--font);
       cursor: pointer;
-      display: flex; align-items: center; gap: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
       transition: all 0.2s ease;
       position: relative;
       text-align: left;
     }
-    
-    .option-btn:active { transform: scale(0.98); background: rgba(255,255,255,0.06); }
+
+    .option-btn:active {
+      transform: scale(0.98);
+      background: rgba(255, 255, 255, 0.06);
+    }
 
     .opt-letter {
-      width: 32px; height: 32px;
+      width: 32px;
+      height: 32px;
       border-radius: 10px;
-      background: rgba(255,255,255,0.1);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; font-weight: 800;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
       color: var(--text-sec);
       flex-shrink: 0;
       transition: 0.2s;
     }
-    
-    .option-btn:hover .opt-letter { background: var(--text-main); color: #000; }
+
+    .option-btn:hover .opt-letter {
+      background: var(--text-main);
+      color: #000;
+    }
 
     /* STATES */
     .correct-state {
@@ -146,20 +210,31 @@
       border-color: var(--success) !important;
       box-shadow: 0 0 20px rgba(39, 174, 96, 0.2);
     }
-    .correct-state .opt-letter { background: var(--success); color: #fff; }
+
+    .correct-state .opt-letter {
+      background: var(--success);
+      color: #fff;
+    }
 
     .wrong-state {
       background: rgba(235, 87, 87, 0.15) !important;
       border-color: var(--danger) !important;
       opacity: 0.6;
     }
-    .wrong-state .opt-letter { background: var(--danger); color: #fff; }
-    
-    .disabled { pointer-events: none; }
+
+    .wrong-state .opt-letter {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .disabled {
+      pointer-events: none;
+    }
 
     /* RESULTS SCREEN */
     .result-overlay {
-      position: fixed; inset: 0;
+      position: fixed;
+      inset: 0;
       background: var(--bg-body);
       background-image: var(--bg-gradient);
       z-index: 20;
@@ -168,103 +243,241 @@
       align-items: center;
       padding: 40px 20px;
       animation: fadeIn 0.5s;
-      overflow-y: auto; /* Allow scrolling for analysis */
+      overflow-y: auto;
+      /* Allow scrolling for analysis */
     }
-    
-    .res-header { text-align: center; margin-bottom: 20px; }
-    .main-score { font-size: 48px; font-weight: 800; color: var(--text-main); line-height: 1; margin-bottom: 8px;}
-    .feedback-txt { color: var(--text-sec); font-size: 16px; margin-bottom: 20px; }
+
+    .res-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .main-score {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .feedback-txt {
+      color: var(--text-sec);
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
 
     /* ANALYSIS SECTION */
     .analysis-card {
-        width: 100%; max-width: 340px;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--surface-border);
-        border-radius: 20px;
-        padding: 20px;
-        margin-bottom: 20px;
-        text-align: left;
+      width: 100%;
+      max-width: 340px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--surface-border);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: left;
     }
-    .analysis-title { font-size: 14px; font-weight: 700; color: var(--text-sec); margin-bottom: 12px; text-transform: uppercase; }
-    
+
+    .analysis-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
     .weak-item {
-        display: flex; justify-content: space-between; align-items: center;
-        margin-bottom: 10px; padding-bottom: 10px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-    .weak-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-    .w-name { font-size: 15px; font-weight: 600; color: #fff; }
-    .w-val { font-size: 14px; color: var(--danger); font-weight: 700; }
+
+    .weak-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .w-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .w-val {
+      font-size: 14px;
+      color: var(--danger);
+      font-weight: 700;
+    }
 
     /* BUTTONS */
     .action-btn {
-      width: 100%; max-width: 340px;
-      padding: 16px; border-radius: 14px;
-      border: none; font-weight: 700; font-size: 15px; font-family: var(--font);
-      cursor: pointer; margin-bottom: 10px;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%;
+      max-width: 340px;
+      padding: 16px;
+      border-radius: 14px;
+      border: none;
+      font-weight: 700;
+      font-size: 15px;
+      font-family: var(--font);
+      cursor: pointer;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       transition: transform 0.2s;
     }
-    .action-btn:active { transform: scale(0.97); }
+
+    .action-btn:active {
+      transform: scale(0.97);
+    }
 
     .btn-ai {
-        background: var(--ai-gradient);
-        color: #000;
-        box-shadow: 0 10px 30px rgba(0, 224, 255, 0.2);
-        position: relative; overflow: hidden;
+      background: var(--ai-gradient);
+      color: #000;
+      box-shadow: 0 10px 30px rgba(0, 224, 255, 0.2);
+      position: relative;
+      overflow: hidden;
     }
+
     /* Shine effect */
     .btn-ai::after {
-        content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-        animation: shine 3s infinite;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shine 3s infinite;
     }
 
-    .btn-primary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--surface-border); }
-    .btn-sec { background: transparent; color: var(--text-sec); }
+    .btn-primary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid var(--surface-border);
+    }
 
-    @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .btn-sec {
+      background: transparent;
+      color: var(--text-sec);
+    }
+
+    @keyframes shine {
+      0% {
+        left: -100%;
+      }
+
+      20% {
+        left: 200%;
+      }
+
+      100% {
+        left: 200%;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
 
     /* TOAST */
     #toast {
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      background: var(--surface); backdrop-filter: blur(10px);
-      border: 1px solid var(--primary); color: var(--primary);
-      padding: 12px 24px; border-radius: 100px;
-      font-weight: 600; font-size: 14px;
-      opacity: 0; pointer-events: none; transition: 0.3s; z-index: 100;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      display: flex; align-items: center; gap: 8px;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    #toast.show { opacity: 1; top: 40px; }
+
+    #toast.show {
+      opacity: 1;
+      top: 40px;
+    }
 
     /* COURSE LOADING MODAL */
     .course-loader {
-        position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 30;
-        display: none; align-items: center; justify-content: center; flex-direction: column;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 30;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
     }
-    .loader-spinner {
-        width: 50px; height: 50px; border: 4px solid var(--surface-border);
-        border-top-color: var(--accent); border-radius: 50%;
-        animation: spin 1s linear infinite; margin-bottom: 20px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
+    .loader-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--surface-border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <div id="toast">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
     <span>Дұрыс жауап!</span>
   </div>
 
   <div class="top-bar">
     <div class="brand-logo">physX <span style="color:var(--primary)">.kz</span></div>
     <button class="close-btn" onclick="history.back()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
     </button>
   </div>
 
@@ -273,7 +486,7 @@
       <div class="q-counter">Сұрақ <span id="currQ" style="color:var(--text-main); font-size:16px;">1</span> / 10</div>
       <div class="score-badge"><span id="scoreVal">0</span> XP</div>
     </div>
-    
+
     <div class="glass-panel question-card">
       <div class="topic-tag" id="topicTag">Кинематика</div>
       <div class="q-text" id="questionText">Жүктелуде...</div>
@@ -284,272 +497,324 @@
 
   <div class="result-overlay" id="resultUI">
     <div class="res-header">
-        <div class="main-score" id="finalScore">0</div>
-        <div class="feedback-txt" id="feedbackText">Нәтиже есептелуде...</div>
+      <div class="main-score" id="finalScore">0</div>
+      <div class="feedback-txt" id="feedbackText">Нәтиже есептелуде...</div>
     </div>
 
     <div class="analysis-card" id="analysisBlock" style="display:none;">
-        <div class="analysis-title">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px; vertical-align:middle"><path d="M2 12h20M2 12l5-5m-5 5l5 5"/></svg>
-            Әлсіз тақырыптар
-        </div>
-        <div id="weakList">
-            </div>
+      <div class="analysis-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          style="margin-right:5px; vertical-align:middle">
+          <path d="M2 12h20M2 12l5-5m-5 5l5 5" />
+        </svg>
+        Әлсіз тақырыптар
+      </div>
+      <div id="weakList">
+      </div>
     </div>
 
     <button class="action-btn btn-ai" onclick="generatePersonalCourse()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path
+          d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+      </svg>
       Жеке курс құрастыру (AI)
     </button>
-    
+
     <button class="action-btn btn-primary" onclick="location.reload()">Қайта тапсыру</button>
     <button class="action-btn btn-sec" onclick="history.back()">Шығу</button>
   </div>
 
   <div class="course-loader" id="courseLoader">
-      <div class="loader-spinner"></div>
-      <div style="font-weight:600; color:var(--accent)">Курс бағдарламасы түзілуде...</div>
-      <div style="font-size:12px; color:var(--text-sec); margin-top:5px;">Әлсіз тақырыптар сарапталуда</div>
+    <div class="loader-spinner"></div>
+    <div style="font-weight:600; color:var(--accent)">Курс бағдарламасы түзілуде...</div>
+    <div style="font-size:12px; color:var(--text-sec); margin-top:5px;">Әлсіз тақырыптар сарапталуда</div>
   </div>
 
   <script>
-  // 1. UPDATED DATA with 'topic'
-  const questions = [
-    {
-      q: "Дене 20 м/с жылдамдықпен тік жоғары лақтырылды. Ең жоғары биіктігі? (g = 10 м/с²)",
-      options: ["10 м", "15 м", "20 м", "25 м", "40 м"],
-      correct: 2,
-      topic: "Кинематика"
-    },
-    {
-      q: "Идеал газдың температурасы 3 есе артса, кинетикалық энергия қалай өзгереді?",
-      options: ["3 есе кемиді", "Өзгермейді", "9 есе артады", "3 есе артады", "√3 есе артады"],
-      correct: 3,
-      topic: "Молекулалық физика"
-    },
-    {
-      q: "Кернеу 220 В, ток 5 А болса, қуат қандай?",
-      options: ["44 Вт", "110 Вт", "1100 Вт", "880 Вт", "225 Вт"],
-      correct: 2,
-      topic: "Тұрақты ток"
-    },
-    {
-      q: "Серіппелі маятниктің периодының формуласы:",
-      options: ["T = 2π√(l/g)", "T = 2π√(m/k)", "T = 2π√(k/m)", "T = 1/2π√(LC)", "T = mg"],
-      correct: 1,
-      topic: "Тербелістер"
-    },
-    {
-      q: "Жарықтың вакуумдегі жылдамдығы:",
-      options: ["300 000 км/с", "330 м/с", "3000 км/с", "30 000 км/с", "шексіздік"],
-      correct: 0,
-      topic: "Оптика"
-    },
-    {
-      q: "Изохоралық процесте тұрақты шама:",
-      options: ["Температура (T)", "Қысым (P)", "Көлем (V)", "Жылу (Q)", "Энтропия"],
-      correct: 2,
-      topic: "Термодинамика"
-    },
-    {
-      q: "Массасы 2 кг денеге 10 Н күш әсер етсе, үдеуі:",
-      options: ["0.2 м/с²", "20 м/с²", "5 м/с²", "8 м/с²", "50 м/с²"],
-      correct: 2,
-      topic: "Динамика"
-    },
-    {
-      q: "Оптикалық күштің өлшем бірлігі:",
-      options: ["Метр", "Джоуль", "Ньютон", "Диоптрия", "Ватт"],
-      correct: 3,
-      topic: "Оптика"
-    },
-    {
-      q: "Ядролық реакторда баяулатқыш ретінде қолданылады:",
-      options: ["Кадмий", "Графит / Ауыр су", "Уран", "Қорғасын", "Бетон"],
-      correct: 1,
-      topic: "Ядролық физика"
-    },
-    {
-      q: "Ампер күшінің бағытын анықтайтын ереже:",
-      options: ["Бұрғы", "Оң қол", "Сол қол", "Ленц", "Кулон"],
-      correct: 2,
-      topic: "Магнетизм"
-    }
-  ];
+    // 1. UPDATED DATA with 'topic'
+    const questions = [
+      {
+        q: "Дене 20 м/с жылдамдықпен тік жоғары лақтырылды. Ең жоғары биіктігі? (g = 10 м/с²)",
+        options: ["10 м", "15 м", "20 м", "25 м", "40 м"],
+        correct: 2,
+        topic: "Кинематика"
+      },
+      {
+        q: "Идеал газдың температурасы 3 есе артса, кинетикалық энергия қалай өзгереді?",
+        options: ["3 есе кемиді", "Өзгермейді", "9 есе артады", "3 есе артады", "√3 есе артады"],
+        correct: 3,
+        topic: "Молекулалық физика"
+      },
+      {
+        q: "Кернеу 220 В, ток 5 А болса, қуат қандай?",
+        options: ["44 Вт", "110 Вт", "1100 Вт", "880 Вт", "225 Вт"],
+        correct: 2,
+        topic: "Тұрақты ток"
+      },
+      {
+        q: "Серіппелі маятниктің периодының формуласы:",
+        options: ["T = 2π√(l/g)", "T = 2π√(m/k)", "T = 2π√(k/m)", "T = 1/2π√(LC)", "T = mg"],
+        correct: 1,
+        topic: "Тербелістер"
+      },
+      {
+        q: "Жарықтың вакуумдегі жылдамдығы:",
+        options: ["300 000 км/с", "330 м/с", "3000 км/с", "30 000 км/с", "шексіздік"],
+        correct: 0,
+        topic: "Оптика"
+      },
+      {
+        q: "Изохоралық процесте тұрақты шама:",
+        options: ["Температура (T)", "Қысым (P)", "Көлем (V)", "Жылу (Q)", "Энтропия"],
+        correct: 2,
+        topic: "Термодинамика"
+      },
+      {
+        q: "Массасы 2 кг денеге 10 Н күш әсер етсе, үдеуі:",
+        options: ["0.2 м/с²", "20 м/с²", "5 м/с²", "8 м/с²", "50 м/с²"],
+        correct: 2,
+        topic: "Динамика"
+      },
+      {
+        q: "Оптикалық күштің өлшем бірлігі:",
+        options: ["Метр", "Джоуль", "Ньютон", "Диоптрия", "Ватт"],
+        correct: 3,
+        topic: "Оптика"
+      },
+      {
+        q: "Ядролық реакторда баяулатқыш ретінде қолданылады:",
+        options: ["Кадмий", "Графит / Ауыр су", "Уран", "Қорғасын", "Бетон"],
+        correct: 1,
+        topic: "Ядролық физика"
+      },
+      {
+        q: "Ампер күшінің бағытын анықтайтын ереже:",
+        options: ["Бұрғы", "Оң қол", "Сол қол", "Ленц", "Кулон"],
+        correct: 2,
+        topic: "Магнетизм"
+      }
+    ];
 
-  let currentQIndex = 0;
-  let score = 0;
-  
-  // 2. ANALYTICS STATE
-  let topicStats = {}; // { "TopicName": { total: 0, wrong: 0 } }
+    let currentQIndex = 0;
+    let score = 0;
 
-  const quizUI = document.getElementById('quizUI');
-  const resultUI = document.getElementById('resultUI');
-  const questionText = document.getElementById('questionText');
-  const topicTag = document.getElementById('topicTag');
-  const optionsGrid = document.getElementById('optionsGrid');
-  const currQSpan = document.getElementById('currQ');
-  const scoreValSpan = document.getElementById('scoreVal');
-  const analysisBlock = document.getElementById('analysisBlock');
-  const weakList = document.getElementById('weakList');
+    // 2. ANALYTICS STATE
+    let topicStats = {}; // { "TopicName": { total: 0, wrong: 0 } }
 
-  function initGame() {
-    currentQIndex = 0;
-    score = 0;
-    topicStats = {};
-    scoreValSpan.innerText = "0";
-    loadQuestion();
-  }
+    const quizUI = document.getElementById('quizUI');
+    const resultUI = document.getElementById('resultUI');
+    const questionText = document.getElementById('questionText');
+    const topicTag = document.getElementById('topicTag');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const currQSpan = document.getElementById('currQ');
+    const scoreValSpan = document.getElementById('scoreVal');
+    const analysisBlock = document.getElementById('analysisBlock');
+    const weakList = document.getElementById('weakList');
 
-  function loadQuestion() {
-    if (currentQIndex >= questions.length) {
-      endGame();
-      return;
-    }
-
-    const qData = questions[currentQIndex];
-    questionText.innerHTML = qData.q;
-    topicTag.innerText = qData.topic;
-    currQSpan.innerText = currentQIndex + 1;
-
-    // Initialize stats if new topic
-    if(!topicStats[qData.topic]) {
-        topicStats[qData.topic] = { total: 0, wrong: 0 };
-    }
-
-    optionsGrid.innerHTML = '';
-    
-    // Animation reset
-    questionText.style.animation = 'none';
-    questionText.offsetHeight; 
-    questionText.style.animation = 'fadeUp 0.4s ease-out';
-
-    qData.options.forEach((opt, idx) => {
-      const btn = document.createElement('div');
-      btn.className = 'option-btn';
-      const letter = String.fromCharCode(65 + idx);
-      btn.innerHTML = `<div class="opt-letter">${letter}</div><span>${opt}</span>`;
-      btn.onclick = () => checkAnswer(idx, btn);
-      optionsGrid.appendChild(btn);
-    });
-  }
-
-  function checkAnswer(selectedIndex, btnElement) {
-    if (btnElement.classList.contains('disabled')) return;
-
-    const qData = questions[currentQIndex];
-    const buttons = optionsGrid.querySelectorAll('.option-btn');
-    buttons.forEach(b => b.classList.add('disabled'));
-
-    // Update Stats
-    topicStats[qData.topic].total++;
-
-    if (selectedIndex === qData.correct) {
-      score += 100;
-      scoreValSpan.innerText = score;
-      showToast("Дұрыс! +100 XP", true);
-      btnElement.classList.add('correct-state');
-    } else {
-      showToast("Қате!", false);
-      btnElement.classList.add('wrong-state');
-      buttons[qData.correct].classList.add('correct-state');
-      
-      // Mark as wrong for analytics
-      topicStats[qData.topic].wrong++;
-    }
-
-    setTimeout(() => {
-      currentQIndex++;
+    function initGame() {
+      currentQIndex = 0;
+      score = 0;
+      topicStats = {};
+      scoreValSpan.innerText = "0";
       loadQuestion();
-    }, 1500);
-  }
+    }
 
-  function endGame() {
-    quizUI.style.display = 'none';
-    resultUI.style.display = 'flex';
+    function loadQuestion() {
+      if (currentQIndex >= questions.length) {
+        endGame();
+        return;
+      }
 
-    document.getElementById('finalScore').innerText = score;
-    const feedback = document.getElementById('feedbackText');
+      const qData = questions[currentQIndex];
+      questionText.innerHTML = qData.q;
+      topicTag.innerText = qData.topic;
+      currQSpan.innerText = currentQIndex + 1;
 
-    if (score >= 900) feedback.innerText = "Грант сенің қолыңда! 🏆";
-    else if (score >= 600) feedback.innerText = "Жақсы нәтиже, бірақ жетілдіру қажет 💪";
-    else feedback.innerText = "Көбірек дайындалайық 📚";
+      // Initialize stats if new topic
+      if (!topicStats[qData.topic]) {
+        topicStats[qData.topic] = { total: 0, wrong: 0 };
+      }
 
-    // 3. GENERATE ANALYSIS
-    generateAnalysis();
-  }
+      optionsGrid.innerHTML = '';
 
-  function generateAnalysis() {
+      // Animation reset
+      questionText.style.animation = 'none';
+      questionText.offsetHeight;
+      questionText.style.animation = 'fadeUp 0.4s ease-out';
+
+      qData.options.forEach((opt, idx) => {
+        const btn = document.createElement('div');
+        btn.className = 'option-btn';
+        const letter = String.fromCharCode(65 + idx);
+        btn.innerHTML = `<div class="opt-letter">${letter}</div><span>${opt}</span>`;
+        btn.onclick = () => checkAnswer(idx, btn);
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selectedIndex, btnElement) {
+      if (btnElement.classList.contains('disabled')) return;
+
+      const qData = questions[currentQIndex];
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+      buttons.forEach(b => b.classList.add('disabled'));
+
+      // Update Stats
+      topicStats[qData.topic].total++;
+
+      if (selectedIndex === qData.correct) {
+        score += 100;
+        scoreValSpan.innerText = score;
+
+        // Feature: Add Coins
+        try {
+          const currentCoins = parseInt(localStorage.getItem('physx_coins') || "50");
+          const newCoins = currentCoins + 10;
+          localStorage.setItem('physx_coins', String(newCoins));
+          showToast("Дұрыс! +100 XP & +10 ⚡", true);
+        } catch (e) {
+          showToast("Дұрыс! +100 XP", true);
+        }
+
+        btnElement.classList.add('correct-state');
+      } else {
+        showToast("Қате!", false);
+        btnElement.classList.add('wrong-state');
+        buttons[qData.correct].classList.add('correct-state');
+
+        // Mark as wrong for analytics
+        topicStats[qData.topic].wrong++;
+      }
+
+      setTimeout(() => {
+        currentQIndex++;
+        loadQuestion();
+      }, 1500);
+    }
+
+    function endGame() {
+      quizUI.style.display = 'none';
+      resultUI.style.display = 'flex';
+
+      document.getElementById('finalScore').innerText = score;
+      const feedback = document.getElementById('feedbackText');
+
+      if (score >= 900) feedback.innerText = "Грант сенің қолыңда! 🏆";
+      else if (score >= 600) feedback.innerText = "Жақсы нәтиже, бірақ жетілдіру қажет 💪";
+      else feedback.innerText = "Көбірек дайындалайық 📚";
+
+      // 3. GENERATE ANALYSIS
+      generateAnalysis();
+    }
+
+    function generateAnalysis() {
       weakList.innerHTML = '';
       let hasWeakness = false;
 
       // Convert object to array and sort by wrong count
       const sortedTopics = Object.keys(topicStats).map(key => {
-          return { name: key, ...topicStats[key] };
+        return { name: key, ...topicStats[key] };
       }).filter(t => t.wrong > 0); // Only show topics with mistakes
 
       if (sortedTopics.length > 0) {
-          analysisBlock.style.display = 'block';
-          sortedTopics.forEach(t => {
-              const div = document.createElement('div');
-              div.className = 'weak-item';
-              div.innerHTML = `
+        analysisBlock.style.display = 'block';
+        sortedTopics.forEach(t => {
+          const div = document.createElement('div');
+          div.className = 'weak-item';
+          div.innerHTML = `
                 <div class="w-name">${t.name}</div>
                 <div class="w-val">${t.wrong} қате</div>
               `;
-              weakList.appendChild(div);
-          });
+          weakList.appendChild(div);
+        });
       } else {
-          analysisBlock.style.display = 'none';
+        analysisBlock.style.display = 'none';
       }
-  }
+    }
 
-  // 4. PERSONAL COURSE SIMULATION
-  function generatePersonalCourse() {
+    // 4. PERSONAL COURSE SIMULATION
+    function generatePersonalCourse() {
       const loader = document.getElementById('courseLoader');
       const btn = document.querySelector('.btn-ai');
-      
+
       // UX Feedback
       loader.style.display = 'flex';
-      
+
       // Simulate API call / Processing time
       setTimeout(() => {
-          loader.style.display = 'none';
-          
-          // Identify weakest topic
-          const topics = Object.keys(topicStats);
-          let weakest = topics[0];
-          let maxWrong = -1;
-          
-          topics.forEach(t => {
-              if(topicStats[t].wrong > maxWrong) {
-                  maxWrong = topicStats[t].wrong;
-                  weakest = t;
-              }
-          });
+        loader.style.display = 'none';
 
-          if(maxWrong === 0) weakest = "Барлығы"; // Perfect score case
+        // Identify weakest topic
+        const topics = Object.keys(topicStats);
+        let weakest = topics[0];
+        let maxWrong = -1;
 
-          alert(`🤖 physX AI:\n\nСіз үшін "${weakest}" тақырыбы бойынша жеке оқу жоспары құрылды!\n\n1. Теориялық шолу\n2. 20 жаттығу есебі\n3. Қатемен жұмыс\n\n(Бұл демо режим)`);
-      }, 2500);
-  }
+        topics.forEach(t => {
+          if (topicStats[t].wrong > maxWrong) {
+            maxWrong = topicStats[t].wrong;
+            weakest = t;
+          }
+        });
 
-  function showToast(msg, isSuccess) {
-    const t = document.getElementById('toast');
-    const icon = isSuccess
-      ? '<polyline points="20 6 9 17 4 12"></polyline>'
-      : '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+        if (maxWrong === 0) weakest = "Барлығы"; // Perfect score case
 
-    t.querySelector('svg').innerHTML = icon;
-    t.querySelector('span').innerText = msg;
-    t.style.borderColor = isSuccess ? 'var(--success)' : 'var(--danger)';
-    t.style.color = isSuccess ? 'var(--success)' : 'var(--danger)';
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 1500);
-  }
+        // Topic Mapping
+        const topicMap = {
+          "Кинематика": "kinematics",
+          "Динамика": "mechanics",
+          "Термодинамика": "thermo",
+          "Молекулалық физика": "thermo",
+          "Тұрақты ток": "electricity",
+          "Магнетизм": "electrodynamics",
+          "Оптика": "optics",
+          "Ядролық физика": "quantum",
+          "Тербелістер": "oscillations"
+        };
 
-  initGame();
+        const linkedId = topicMap[weakest] || "mechanics";
+
+        // Save plan to localStorage
+        const plan = {
+          id: `personal-${Date.now()}`,
+          title: `Жеке жоспар: ${weakest}`,
+          topic: "AI Ұсынысы (ҰБТ нәтижесі)",
+          level: "11-сынып", // Assuming ENT taker is 11th grade
+          progress: 0,
+          linkedTopic: linkedId
+        };
+
+        let personalPlans = JSON.parse(localStorage.getItem('physx_personal_plans') || "[]");
+        personalPlans.unshift(plan);
+        localStorage.setItem('physx_personal_plans', JSON.stringify(personalPlans));
+
+        // Redirect to profile tab
+        localStorage.setItem('physx_active_tab', 'profile');
+        showToast("Жеке жоспар құрылды!", true);
+
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 1000);
+      }, 2000);
+    }
+
+    function showToast(msg, isSuccess) {
+      const t = document.getElementById('toast');
+      const icon = isSuccess
+        ? '<polyline points="20 6 9 17 4 12"></polyline>'
+        : '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+
+      t.querySelector('svg').innerHTML = icon;
+      t.querySelector('span').innerText = msg;
+      t.style.borderColor = isSuccess ? 'var(--success)' : 'var(--danger)';
+      t.style.color = isSuccess ? 'var(--success)' : 'var(--danger)';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 1500);
+    }
+
+    initGame();
   </script>
 
 </body>
+
 </html>

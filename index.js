@@ -308,15 +308,16 @@ function initCustomSelects(){
       });
     });
 
-    searchInput.addEventListener('input', () => {
-      const q = (searchInput.value || '').trim().toLowerCase();
-      items.forEach(it => {
-        const text = it.innerText.toLowerCase();
-        it.style.display = text.includes(q) ? '' : 'none';
-      });
-      setActiveItem(cs, getVisibleItems(cs)[0]);
+    if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    const q = (searchInput.value || '').trim().toLowerCase();
+    items.forEach(it => {
+      const text = it.innerText.toLowerCase();
+      it.style.display = text.includes(q) ? '' : 'none';
     });
-
+    setActiveItem(cs, getVisibleItems(cs)[0]);
+  });
+}
     cs.addEventListener('keydown', (e) => {
       if(!cs.classList.contains('open')) return;
 

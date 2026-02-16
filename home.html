@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="kk" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>physX | Физика платформасы</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <link rel="stylesheet" href="home.css" />
+  <style>
+    /* UTILITIES */
+    .grid-2-col-responsive {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .grid-2-col-responsive {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .skeleton-loader {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      border-radius: 12px;
+      min-height: 80px;
+    }
+
+    @keyframes skeleton-loading {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
+    }
+  </style>
 </head>
+
 <body class="role-student">
   <div class="app-container">
     <header class="header">
@@ -40,7 +75,7 @@
         </button>
       </div>
     </header>
-    
+
     <!-- NOTIFICATION PANEL -->
     <div class="notif-panel" id="notifPanel">
       <div class="notif-header">
@@ -53,7 +88,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- HOME TAB -->
     <div id="tab-home" class="tab-content active">
       <div class="hero">
@@ -70,7 +105,9 @@
           <div class="stat-item">
             <div class="stat-val">62<span style="font-size:16px; opacity:0.5">%</span></div>
             <div class="stat-label">Прогресс</div>
-            <div class="prog-track"><div class="prog-fill" style="width: 62%"></div></div>
+            <div class="prog-track">
+              <div class="prog-fill" style="width: 62%"></div>
+            </div>
           </div>
           <div class="stat-item" style="align-items: center; text-align: center;">
             <div class="stat-val">88%</div>
@@ -87,7 +124,8 @@
           <div style="position:relative; z-index:1;">
             <div class="tag" style="background:rgba(12, 0, 243, 0.2); color: #9a86f4;">Сынама ҰБТ</div>
             <div class="h2" style="margin-bottom:6px;">ҰБТ сұрақтары 🚀 </div>
-            <div class="txt-sm" style="opacity:0.8; margin-bottom: 12px;">Физика пәнінен тест тапсырып, деңгейіңді көтер.</div>
+            <div class="txt-sm" style="opacity:0.8; margin-bottom: 12px;">Физика пәнінен тест тапсырып, деңгейіңді
+              көтер.</div>
             <button class="cta-btn ent-btn" onclick=location.href="quiz.html">
               <svg viewBox="0 0 24 24">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -105,7 +143,9 @@
           <div class="h2" style="margin-bottom:6px;">Электр тогы • 8-сынып</div>
           <div class="txt-sm" style="opacity:0.8;">Тақырып: Электр тогының жұмысы мен қуаты. </div>
           <button class="cta-btn" onclick="startLesson()">
-            <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M5 3l14 9-14 9V3z" />
+            </svg>
             <span>Жалғастыру</span>
           </button>
         </div>
@@ -140,19 +180,21 @@
           </div>
         </div>
         <div class="section-head">
-          <div class="h3">Үй тапсырмасы</div>
-          <div class="link-btn">Көру</div>
+          <div class="h3">Бақылау жұмыстары</div>
+          <div class="link-btn" onclick="showToast('Барлық тесттер осында', 'ℹ️')">Барлығы</div>
         </div>
-        <div class="list-item" onclick="showToast('Физика тапсырмасы', '📚')">
-          <div>
-            <div class="h3" style="font-size:14px; margin-bottom:2px;">Физика курсы</div>
-            <div class="txt-sm">§15. Ньютон заңдары</div>
-          </div>
-          <div class="deadline urgent">2 сағат</div>
+        <div id="testsRoot" class="grid-2-col-responsive">
+          <!-- Tests will be rendered here -->
+          <div class="list-item skeleton-loader"></div>
+          <div class="list-item skeleton-loader"></div>
         </div>
       </div>
     </div>
-    
+
+    <!-- CONFETTI CANVAS -->
+    <canvas id="confetti"
+      style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
+
     <!-- COURSES TAB -->
     <div id="tab-courses" class="tab-content" style="padding-bottom: 60px;">
       <div style="text-align: center; margin-bottom: 20px; opacity: 0.8;">
@@ -162,7 +204,7 @@
       <input class="course-search" id="courseSearch" placeholder="Тақырып/курс іздеу..." />
       <div class="course-wrap" id="coursesRoot"></div>
     </div>
-    
+
     <!-- SHOP TAB -->
     <div id="tab-shop" class="tab-content" style="padding-bottom: 60px;">
       <div style="text-align: center; margin-bottom: 20px;">
@@ -176,7 +218,7 @@
       </div>
       <div id="shopItems"></div>
     </div>
-    
+
     <!-- CHAT TAB -->
     <div id="tab-chat" class="tab-content" style="padding-bottom: 60px;">
       <div style="text-align: center; margin-bottom: 20px; opacity: 0.8;">
@@ -192,14 +234,15 @@
       <div class="chat-input-area">
         <input type="text" class="chat-input" id="chatInput" placeholder="Сұрағыңызды жазыңыз...">
         <button class="send-btn" id="sendBtn" onclick="sendMessage()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
             <line x1="22" y1="2" x2="11" y2="13"></line>
             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
         </button>
       </div>
     </div>
-    
+
     <!-- PROFILE TAB -->
     <div id="tab-profile" class="tab-content" style="padding-bottom: 60px;">
       <div style="text-align:center; margin-bottom: 14px; opacity:0.9;">
@@ -233,7 +276,9 @@
         </div>
         <div style="margin-top: 14px;">
           <div class="txt-xs" style="margin-bottom:6px;">Апталық мақсат</div>
-          <div class="mini-track"><div class="mini-fill" id="weeklyFill" style="width: 45%"></div></div>
+          <div class="mini-track">
+            <div class="mini-fill" id="weeklyFill" style="width: 45%"></div>
+          </div>
           <div class="txt-sm" style="margin-top:8px; opacity:0.85;" id="weeklyText">4.5 сағ / 10 сағ</div>
         </div>
       </div>
@@ -244,11 +289,14 @@
       <div id="profileCourses"></div>
     </div>
   </div>
-  
+
   <!-- NAVIGATION -->
   <nav class="nav-island">
     <div class="nav-btn active" id="nav-home" onclick="setTab('home')">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
     </div>
     <div class="nav-btn" id="nav-courses" onclick="setTab('courses')">
       <svg viewBox="0 0 24 24">
@@ -270,19 +318,24 @@
       </svg>
     </div>
     <div class="nav-btn" id="nav-profile" onclick="setTab('profile')">
-      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
     </div>
   </nav>
-  
+
   <!-- SIDEBAR -->
   <div class="sidebar-overlay" id="overlay" onclick="toggleMenu()"></div>
   <aside class="sidebar" id="sidebar">
-    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
-      <div style="width: 70px; height: 70px; border-radius: 50%; background: var(--surface-highlight); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; margin-bottom: 12px; border: 2px solid var(--border);">
+    <div
+      style="display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
+      <div id="sidebarAvatar"
+        style="width: 70px; height: 70px; border-radius: 50%; background: var(--surface-highlight); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; margin-bottom: 12px; border: 2px solid var(--border);">
         A
       </div>
-      <div class="h2">Азамат</div>
-      <div class="txt-sm">Оқушы • 8-сынып</div>
+      <div class="h2" id="sidebarName">Азамат</div>
+      <div class="txt-sm" id="sidebarRole">Оқушы • 8-сынып</div>
       <div style="margin-top: 10px; display: flex; align-items: center; gap: 6px; opacity: 0.9;">
         <span style="font-size: 20px;">⚡</span>
         <span class="h3" id="sidebarCoins">0</span>
@@ -291,7 +344,10 @@
     <ul style="list-style: none; padding: 0; width: 100%; display: flex; flex-direction: column; gap: 8px;">
       <li class="menu-item" onclick="setTab('home'); toggleMenu();">
         <div class="icon-box">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <svg viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
         </div>
         <span>Басты бет</span>
       </li>
@@ -325,7 +381,12 @@
       </li>
       <li class="menu-item" onclick="showToast('Баптаулар әзірленуде...', '⚙️')">
         <div class="icon-box">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+            </path>
+          </svg>
         </div>
         <span>Баптаулар</span>
       </li>
@@ -334,33 +395,34 @@
       physX v1.5 alpha • KZ made by spiritz
     </div>
   </aside>
-  
+
   <!-- TOAST -->
   <div id="toast" class="toast">
     <span class="toast-icon" id="toastIcon"></span>
     <span id="toastText">OK</span>
   </div>
-  
+
   <!-- CONFIRM MODAL -->
   <div class="confirm-modal" id="confirmModal">
     <div class="confirm-box">
       <div class="confirm-icon">🛒</div>
       <div class="h2" style="text-align: center; margin-bottom: 8px;" id="confirmTitle">Сатып алу</div>
-      <div class="txt-sm" style="text-align: center; opacity: 0.8;" id="confirmText">Бұл курсты сатып алғыңыз келе ме?</div>
+      <div class="txt-sm" style="text-align: center; opacity: 0.8;" id="confirmText">Бұл курсты сатып алғыңыз келе ме?
+      </div>
       <div class="confirm-actions">
         <button class="confirm-btn cancel">Жоқ</button>
         <button class="confirm-btn confirm">Сатып алу</button>
       </div>
     </div>
   </div>
-  
+
   <!-- FLOATING CHAT BUTTON -->
   <div class="float-chat-btn" onclick="openFloatChat()">
     <svg viewBox="0 0 24 24">
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
     </svg>
   </div>
-  
+
   <!-- FLOATING CHAT MODAL -->
   <div class="float-chat-modal" id="floatChatModal">
     <div class="float-chat-window">
@@ -392,7 +454,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- COURSE CONTENT MODAL -->
   <div class="course-modal" id="courseModal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="course-content-window">
@@ -409,26 +471,27 @@
         </button>
       </div>
       <div class="video-section">
-  <div class="h3" style="margin-bottom: 12px; color: var(--text-main);">📹 Видео курс</div>
-  <div class="video-player" id="videoPlayer">
-    <!-- YouTube iframe will be loaded here -->
-  </div>
-</div>
+        <div class="h3" style="margin-bottom: 12px; color: var(--text-main);">📹 Видео курс</div>
+        <div class="video-player" id="videoPlayer">
+          <!-- YouTube iframe will be loaded here -->
+        </div>
+      </div>
 
-<div class="course-body" id="courseBodyContent">
-  <!-- Dynamic content will be loaded here -->
-</div>
+      <div class="course-body" id="courseBodyContent">
+        <!-- Dynamic content will be loaded here -->
+      </div>
 
-  
-  <!-- ACHIEVEMENT POPUP -->
-  <div class="achievement-popup" id="achievementPopup">
-    <div class="achievement-icon">🏆</div>
-    <div class="achievement-text">
-      <h4 id="achievementTitle">Жаңа жетістік!</h4>
-      <p id="achievementDesc">Сіз жаңа деңгейге жеттіңіз!</p>
-    </div>
-  </div>
-  
-  <script src="home.js"></script>
+
+      <!-- ACHIEVEMENT POPUP -->
+      <div class="achievement-popup" id="achievementPopup">
+        <div class="achievement-icon">🏆</div>
+        <div class="achievement-text">
+          <h4 id="achievementTitle">Жаңа жетістік!</h4>
+          <p id="achievementDesc">Сіз жаңа деңгейге жеттіңіз!</p>
+        </div>
+      </div>
+
+      <script src="home.js"></script>
 </body>
+
 </html>
