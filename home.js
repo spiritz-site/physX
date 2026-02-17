@@ -337,6 +337,11 @@ function openTopic(topicId) {
   });
 
   document.getElementById("courseBodyContent").innerHTML = bodyHTML;
+  
+  // Show video container
+  const videoSection = document.querySelector(".video-section");
+  if(videoSection) videoSection.style.display = "block";
+  
   document.getElementById("videoPlayer").innerHTML = `
         <iframe 
           src="https://www.youtube.com/embed/${content.videoId}" 
@@ -366,9 +371,14 @@ function closeCourseModal() {
   modal?.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
 
-  // Stop video playback (prevents audio in background)
+  // Stop video playback and reset display
   const vp = document.getElementById("videoPlayer");
   if (vp) vp.innerHTML = "";
+  
+  setTimeout(() => {
+    const videoSection = document.querySelector(".video-section");
+    if(videoSection) videoSection.style.display = "block";
+  }, 300);
 }
 
 document.getElementById("courseModal")?.addEventListener("click", (e) => {
@@ -684,7 +694,7 @@ setTimeout(() => {
 }, 500);
 
 // ================== CHAT ==================
-const API_KEY = "AIzaSyBvuwumIdBwR9Gxd6pTduVwE0U88L2C1Cs";
+const API_KEY = "AIzaSyD92YziqcLPpTaVWtdxF9Q2OOnDAMBnAKw";
 const MODEL = "gemini-2.5-flash-lite";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
 const systemInstruction = {
@@ -934,143 +944,174 @@ const COURSES = [
   }
 ];
 
-// ================== TESTS DATA EXPANSION ==================
+// ================== TESTS DATA (REVISED) ==================
 const TESTS = [
-  // 8-сынып (Mechanics, Thermal, Electricity, Optics basics)
-  { id: "t8-kin", title: "Кинематика негіздері", level: "8-сынып", topic: "mechanics", questions: 10, reward: 50, icon: "🚗" },
-  { id: "t8-dyn", title: "Күш және қозғалыс", level: "8-сынып", topic: "mechanics", questions: 10, reward: 50, icon: "💪" },
-  { id: "t8-therm", title: "Жылу құбылыстары", level: "8-сынып", topic: "thermo", questions: 10, reward: 50, icon: "🔥" },
-  { id: "t8-el", title: "Тұрақты электр тогы", level: "8-сынып", topic: "electrodynamics", questions: 10, reward: 50, icon: "⚡" },
-  { id: "t8-opt", title: "Жарық құбылыстары", level: "8-сынып", topic: "optics", questions: 10, reward: 50, icon: "💡" },
-
-  // 9-сынып (Adv Mechanics, Waves, Nuclear basics)
-  { id: "t9-kin2", title: "Кинематика: Қозғалыс теңдеулері", level: "9-сынып", topic: "mechanics", questions: 15, reward: 75, icon: "🚀" },
-  { id: "t9-dyn2", title: "Динамика заңдары", level: "9-сынып", topic: "mechanics", questions: 15, reward: 75, icon: "⚖️" },
-  { id: "t9-cons", title: "Сақталу заңдары", level: "9-сынып", topic: "mechanics", questions: 15, reward: 75, icon: "🔋" },
-  { id: "t9-wave", title: "Тербелістер мен толқындар", level: "9-сынып", topic: "oscillations", questions: 15, reward: 75, icon: "〰️" },
-  { id: "t9-nuc", title: "Атом және ядро физикасы", level: "9-сынып", topic: "quantum", questions: 15, reward: 75, icon: "☢️" },
-
-  // 10-сынып (Molecular, Thermodynamics, Electrostatics)
-  { id: "t10-mol", title: "МКТ негіздері", level: "10-сынып", topic: "thermo", questions: 20, reward: 100, icon: "🔬" },
-  { id: "t10-therm", title: "Термодинамика заңдары", level: "10-сынып", topic: "thermo", questions: 20, reward: 100, icon: "🌡️" },
-  { id: "t10-elst", title: "Электростатика", level: "10-сынып", topic: "electrodynamics", questions: 20, reward: 100, icon: "🌩️" },
-  { id: "t10-eldyn", title: "Тұрақты ток заңдары", level: "10-сынып", topic: "electrodynamics", questions: 20, reward: 100, icon: "🔌" },
-
-  // 11-сынып (Magnetism, Optics, Quantum, Astrophysics)
-  { id: "t11-mag", title: "Магнит өрісі", level: "11-сынып", topic: "electrodynamics", questions: 25, reward: 150, icon: "🧲" },
-  { id: "t11-ind", title: "Электромагниттік индукция", level: "11-сынып", topic: "electrodynamics", questions: 25, reward: 150, icon: "🌀" },
-  { id: "t11-opt", title: "Геометриялық және толқындық оптика", level: "11-сынып", topic: "optics", questions: 25, reward: 150, icon: "🌈" },
-  { id: "t11-quant", title: "Кванттық физика", level: "11-сынып", topic: "quantum", questions: 25, reward: 150, icon: "⚛️" },
-  { id: "t11-astro", title: "Астрофизика негіздері", level: "11-сынып", topic: "astro", questions: 25, reward: 150, icon: "✨" },
-
-  // ENT Trials (Available for all/11)
-  { id: "ent-mini", title: "Сынама ҰБТ (Шағын)", level: "11-сынып", topic: "ent", questions: 20, reward: 200, icon: "🎓" },
-  { id: "ent-full", title: "Сынама ҰБТ (Толық)", level: "11-сынып", topic: "ent", questions: 40, reward: 500, icon: "🏆" }
+  { id: "test-kinematics", title: "Кинематика", questions: 3, reward: 50, icon: "🏃" },
+  { id: "test-dynamics", title: "Динамика", questions: 3, reward: 60, icon: "🚀" },
+  { id: "test-energy", title: "Энергия", questions: 3, reward: 50, icon: "🔋" },
+  { id: "test-electro", title: "Электр тогы", questions: 3, reward: 70, icon: "⚡" },
+  { id: "test-optics", title: "Оптика", questions: 2, reward: 80, icon: "🔬" },
+  { id: "test-ent", title: "ҰБТ-ға дайындық", questions: 3, reward: 100, icon: "🎓" }
 ];
+
+// Map questions specifically for these tests
+const TEST_QUESTIONS = {
+  "test-kinematics": [
+    { q: "Жылдамдықтың формуласы қандай?", options: ["v = s/t", "v = s*t", "v = m/a"], correct: 0 },
+    { q: "Үдеудің өлшем бірлігі?", options: ["м/с", "м/с²", "Ньютон"], correct: 1 },
+    { q: "Траектория дегеніміз не?", options: ["Дененің ізі", "Қозғалыс сызығы", "Орын ауыстыру"], correct: 1 }
+  ],
+  "test-dynamics": [
+    { q: "Ньютонның 2-ші заңы?", options: ["F = m/a", "F = ma", "a = F*m"], correct: 1 },
+    { q: "Күштің өлшем бірлігі?", options: ["Джоуль", "Паскаль", "Ньютон"], correct: 2 },
+    { q: "Салмақсыздық формуласы?", options: ["P = mg", "P = 0", "P = m(g+a)"], correct: 1 }
+  ],
+  "test-electro": [
+    { q: "Ток күшінің өлшем бірлігі?", options: ["Вольт", "Ампер", "Ом"], correct: 1 },
+    { q: "Кернеуді өлшейтін құрал?", options: ["Амперметр", "Вольтметр", "Реостат"], correct: 1 },
+    { q: "Ом заңы?", options: ["I = U/R", "I = UR", "U = I/R"], correct: 0 }
+  ]
+  // Fallback for others will be handled dynamically
+};
 
 function renderTests() {
   const root = document.getElementById("testsRoot");
   if (!root) return;
-  const userGrade = getUserGrade();
 
-  const filteredTests = TESTS.filter(t => t.level.includes(userGrade) || t.topic === 'ent');
-
-  if (filteredTests.length === 0) {
-    root.innerHTML = `<div class="txt-sm" style="text-align:center; opacity:0.6; padding:20px; grid-column: 1 / -1;">Сіздің сыныбыңызға арналған тесттер әзірленуде...</div>`;
-    return;
-  }
-
-  root.innerHTML = filteredTests.map(t => {
-    let bgGradient = "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)";
-    let borderCol = "rgba(255,255,255,0.1)";
-
-    if (t.topic === 'ent') {
-      bgGradient = "linear-gradient(135deg, rgba(0, 242, 160, 0.1) 0%, rgba(0, 100, 255, 0.1) 100%)";
-      borderCol = "rgba(0, 242, 160, 0.3)";
-    }
-
-    return `
-          <div class="test-card" onclick="startTest('${t.id}')" style="
-              background: ${bgGradient};
-              border: 1px solid ${borderCol};
-              border-radius: 16px;
-              padding: 16px;
-              cursor: pointer;
-              transition: transform 0.2s, box-shadow 0.2s;
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-              height: 100%;
-              min-height: 140px;
-          " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.3)'" 
-             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-             
-             <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 12px;">
-                <div style="font-size: 24px; background: rgba(255,255,255,0.05); width: 42px; height: 42px; border-radius: 12px; display:flex; align-items:center; justify-content:center;">
-                   ${t.icon}
-                </div>
-                <div style="background: rgba(0, 242, 160, 0.1); color: var(--primary); padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;">
-                   +${t.reward} ⚡
-                </div>
-             </div>
-             
-             <div>
-                <div class="h3" style="font-size: 15px; margin-bottom: 4px; color: #fff; line-height: 1.3;">${t.title}</div>
-                <div class="txt-sm" style="opacity: 0.6; font-size: 12px;">${t.questions} сұрақ • ${t.level}</div>
-             </div>
-             
-             <div style="margin-top: 12px; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--accent); font-weight: 600;">
-                <span>Тапсыру</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-             </div>
-          </div>
-       `}).join('');
+  root.innerHTML = TESTS.map(t => `
+    <div class="sub-card is-test" onclick="runTest('${t.id}')" style="aspect-ratio: auto; padding: 20px 10px; height: auto;">
+      <span class="topic-emoji" style="font-size: 28px;">${t.icon}</span>
+      <div class="txt-xs" style="margin-top: 6px; font-weight: 700; font-size: 13px;">${t.title}</div>
+      <div class="txt-sm" style="font-size: 10px; opacity: 0.6; margin-top: 2px;">${t.questions} сұрақ • +${t.reward}⚡</div>
+    </div>
+  `).join('');
 }
 
-function startTest(testId) {
-  // Reuse mini-quiz logic but with more questions/rewards
-  // For MVP, we'll route to a generic quiz modal
-  // "Reusable logic" requested.
-  const test = TESTS.find(t => t.id === testId);
-  if (!test) return;
+function runTest(testId) {
+  const testData = TESTS.find(t => t.id === testId);
+  if (!testData) return;
 
-  // Mock questions for the test
-  // Ideally these should be distinct, but reusing MINI_QUIZZES or generating random ones
-  /* 
-     Since I don't have a database of thousands of questions, I will simulate the test startup 
-     by using the existing 'startMiniQuiz' logic but injecting a dummy topicId that I will 
-     populate on the fly or mapping it.
-  */
+  // 1. Prepare Modal
+  const modal = document.getElementById("courseModal");
+  const headerTitle = document.getElementById("courseTitle");
+  const headerLevel = document.getElementById("courseLevel");
+  const body = document.getElementById("courseBodyContent");
+  const videoPlayer = document.getElementById("videoPlayer");
 
-  // Mocking dynamic quiz population
-  if (!MINI_QUIZZES[testId]) {
-    MINI_QUIZZES[testId] = [
-      { q: "Тест сұрағы #1", options: ["Дұрыс", "Қате"], correct: 0 },
-      { q: "Тест сұрағы #2", options: ["Дұрыс", "Қате"], correct: 0 },
-      { q: "Тест сұрағы #3", options: ["Дұрыс", "Қате"], correct: 0 }
+  // 2. Hide Video & Set Title
+  const videoSection = document.querySelector(".video-section");
+  if(videoSection) videoSection.style.display = "none";
+  
+  headerTitle.textContent = testData.title;
+  headerLevel.textContent = "Бақылау жұмысы";
+  
+  // 3. Get Questions (Use specific or generate dummy)
+  let questions = TEST_QUESTIONS[testId];
+  if (!questions) {
+    // Dummy fallback if questions aren't defined
+    questions = [
+      { q: "Физика ғылымы нені зерттейді?", options: ["Табиғатты", "Қоғамды", "Тарихты"], correct: 0 },
+      { q: "Бұл сұрақ сынақ ретінде берілген.", options: ["Дұрыс", "Қате"], correct: 0 }
     ];
   }
 
-  showToast("Тест жүктелуде...", "loading");
-  setTimeout(() => {
-    // Open a generic 'Test' topic to reuse the modal
-    // But we need to use 'openTopic' to show the modal
-    // I'll create a dummy 'test-runner' topic in COURSE_CONTENT
-    if (!COURSE_CONTENT['test-runner']) {
-      COURSE_CONTENT['test-runner'] = {
-        title: "Бақылау жұмысы",
-        level: test.level,
-        sections: [{ title: "Нұсқаулық", content: "Сұрақтарға мұқият жауап беріңіз." }]
-      };
+  // 4. Render Quiz Interface
+  let currentQIndex = 0;
+  let score = 0;
+
+  function renderQuestion() {
+    if (currentQIndex >= questions.length) {
+      // Finish
+      triggerConfetti();
+      addCoins(testData.reward, "Тест тапсырылды");
+      body.innerHTML = `
+        <div style="text-align: center; padding: 40px 20px; animation: fadeIn 0.5s;">
+          <div style="font-size: 60px; margin-bottom: 20px;">🏆</div>
+          <div class="h2">Тамаша!</div>
+          <p class="txt-sm" style="margin-bottom: 20px;">Сіз ${questions.length} сұрақтың ${score}-не дұрыс жауап бердіңіз.</p>
+          <div class="coins-display" style="display:inline-flex; margin-bottom: 20px; background: var(--surface-highlight);">
+             +${testData.reward} ⚡
+          </div>
+          <button class="cta-btn" onclick="closeCourseModal()">Жабу</button>
+        </div>
+      `;
+      return;
     }
-    COURSE_CONTENT['test-runner'].title = test.title;
 
-    openTopic('test-runner');
+    const q = questions[currentQIndex];
+    const progressPercent = ((currentQIndex) / questions.length) * 100;
 
-    // Auto-click the quiz button I injected in openTopic? 
-    // Or better: directly render the quiz interface container
-    setTimeout(() => startMiniQuiz(testId), 500);
-  }, 800);
+    body.innerHTML = `
+      <div class="quiz-container">
+        <div style="margin-bottom: 20px;">
+           <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+              <span class="txt-xs">Сұрақ ${currentQIndex + 1}/${questions.length}</span>
+              <span class="txt-xs">${Math.round(progressPercent)}%</span>
+           </div>
+           <div class="mini-track"><div class="mini-fill" style="width:${progressPercent}%"></div></div>
+        </div>
+
+        <div class="h3" style="font-size: 18px; margin-bottom: 24px;">${q.q}</div>
+
+        <div id="options-container">
+          ${q.options.map((opt, idx) => `
+            <button class="quiz-option" onclick="handleAnswer(${idx})" id="opt-${idx}">
+              <span>${opt}</span>
+              <div class="status-icon"></div>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  // Make handleAnswer global to be accessible from HTML string
+  window.handleAnswer = (selectedIndex) => {
+    const q = questions[currentQIndex];
+    const isCorrect = selectedIndex === q.correct;
+    const btn = document.getElementById(`opt-${selectedIndex}`);
+    
+    // UI Feedback
+    if (isCorrect) {
+      score++;
+      btn.classList.add('selected-correct');
+      btn.innerHTML += `<span>✅</span>`;
+      showToast("Дұрыс!", "✓");
+    } else {
+      btn.classList.add('selected-wrong');
+      btn.innerHTML += `<span>❌</span>`;
+      
+      // Highlight correct one
+      const correctBtn = document.getElementById(`opt-${q.correct}`);
+      correctBtn.classList.add('selected-correct');
+      
+      showToast("Қате!", "⚠️");
+      // Vibrate on mobile if supported
+      if(navigator.vibrate) navigator.vibrate(200);
+    }
+
+    // Disable all buttons
+    const allBtns = document.querySelectorAll('.quiz-option');
+    allBtns.forEach(b => b.onclick = null);
+
+    // Next question delay
+    setTimeout(() => {
+      currentQIndex++;
+      renderQuestion();
+    }, 1200);
+  };
+
+  // 5. Open Modal
+  modal.classList.add("active");
+  document.body.classList.add("modal-open");
+  
+  // Start
+  renderQuestion();
+}
+
+function startTest(testId) {
+  // Keeping this for compatibility if called elsewhere, but we mostly use runTest now
+  runTest(testId);
 }
 
 // ================== DAILY REWARD & CONFETTI ==================
